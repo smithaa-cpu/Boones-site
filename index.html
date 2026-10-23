@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOONES | Bone and Joint Program</title>
+<meta name="description" content="BOONES: a 6 week bone and joint exercise and education program by Adrian Smith, PT.">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: a calm course player. Slate top bar, week rail, one lesson at a time with big Next buttons. Coral marks what to do next. */
+:root{
+  --bg:#F5F7F9; --surface:#FFFFFF; --soft:#EEF2F6; --fg:#26323F; --muted:#4F5D6B; --line:#D3DBE3;
+  --accent:#26323F; --accent-fg:#FFFFFF; --link:#B8432C;
+  --amber:#EE6A50; --amber-soft:#FDE3DC; --amber-ink:#9A3420;
+  --bar:#DCE6EE; --bar-fg:#1E2933; --bar-muted:#9FB0C0;
+  --side:#26323F; --side-fg:#FFFFFF; --side-muted:#B4C0CC; --side-hover:rgba(255,255,255,.1);
+  --good:#1D5E36; --good-soft:#D5EBDC; --bad:#8A2A1B; --bad-soft:#F4D0C8; --warn-soft:#FBEBC4; --warn-ink:#6B4A0E;
+  --display:'Sora', 'Segoe UI', Arial, sans-serif;
+  --body:'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121A22; --surface:#1B2631; --soft:#24313E; --fg:#E8EDF2; --muted:#A9B6C3; --line:#34424F;
+  --accent:#F0806A; --accent-fg:#1A0F0C; --link:#F7A493;
+  --amber:#F0806A; --amber-soft:#3A2420; --amber-ink:#F7A493;
+  --bar:#0C1218; --bar-fg:#E8EDF2; --bar-muted:#A9B6C3; --side:#0C1218; --side-fg:#E8EDF2; --side-muted:#A9B6C3; --side-hover:rgba(255,255,255,.08);
+  --good:#8FD6A6; --good-soft:#1C3527; --bad:#F2A497; --bad-soft:#3D2420; --warn-soft:#3A3120; --warn-ink:#F4D68C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121A22; --surface:#1B2631; --soft:#24313E; --fg:#E8EDF2; --muted:#A9B6C3; --line:#34424F;
+  --accent:#F0806A; --accent-fg:#1A0F0C; --link:#F7A493;
+  --amber:#F0806A; --amber-soft:#3A2420; --amber-ink:#F7A493;
+  --bar:#0C1218; --bar-fg:#E8EDF2; --bar-muted:#A9B6C3; --side:#0C1218; --side-fg:#E8EDF2; --side-muted:#A9B6C3; --side-hover:rgba(255,255,255,.08);
+  --good:#8FD6A6; --good-soft:#1C3527; --bad:#F2A497; --bad-soft:#3D2420; --warn-soft:#3A3120; --warn-ink:#F4D68C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:19px;line-height:1.5}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--bar);color:var(--bar-fg);border-bottom:1px solid var(--line)}
+header.top .btn.ghost{color:var(--bar-fg);border-color:var(--bar-muted)}
+header.top .btn.ghost:hover{border-color:var(--amber)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--bar-fg);font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.04em}
+.tiles{display:flex;gap:3px}
+.tiles span{width:14px;height:14px;border-radius:3px;background:var(--bar-fg)}
+.tiles span.o{}
+.tiles span.s{background:var(--amber)}
+nav.links{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:12px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-fg);font-family:var(--display);font-weight:600;font-size:18px;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.small{min-height:44px;padding:0 14px;font-size:16px}
+.btn[disabled]{opacity:.45;cursor:default}
+main{padding-block:28px 0;min-width:0}
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:100vh}
+.side{background:var(--side);color:var(--side-fg);padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:16px;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;gap:4px}
+.side .brand{color:var(--side-fg);padding:4px 8px 18px}
+.side .label{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--side-muted);padding:14px 12px 6px}
+.nav{display:flex;align-items:center;gap:12px;min-height:48px;padding:8px 12px;border-radius:12px;color:var(--side-fg);text-decoration:none;font-size:17px}
+.nav:hover{background:var(--side-hover)}
+.nav.on{background:var(--side-hover);font-weight:700;box-shadow:inset 3px 0 0 var(--amber)}
+.nav.cta{background:var(--amber);color:#1F1512;font-weight:700}
+.nav.cta.on{box-shadow:none;outline:2px solid var(--side-fg);outline-offset:-2px}
+.nav .num{flex:none;width:30px;height:30px;border-radius:8px;background:var(--side-hover);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:14px;font-weight:600}
+.nav .num.done{background:var(--good);color:#FFFFFF}
+.side .bottom{margin-top:auto;padding-top:14px}
+@media (max-width:820px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .side{position:sticky;top:0;z-index:20;height:auto;overflow:visible;gap:8px;padding-block:10px;padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .side .brand{padding:0 4px}
+  #sidenav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding:0 16px 2px}
+  #sidenav::-webkit-scrollbar{display:none}
+  .side .label{display:none}
+  .side .bottom{display:contents}
+  .nav{flex:none;white-space:nowrap;min-height:42px;padding:6px 12px;gap:8px;font-size:15px}
+  .nav .num{width:24px;height:24px;font-size:13px}
+  .nav.on{box-shadow:inset 0 -3px 0 var(--amber)}
+}
+.herocard{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:32px;margin-bottom:20px}
+.herocard .deco{position:absolute;right:36px;top:30px;width:190px;height:170px}
+.herocard .txt{position:relative;max-width:calc(100% - 220px)}
+.herocard h1{font-size:clamp(30px,4.5vw,44px);margin-top:8px}
+.herocard p{color:var(--muted);max-width:34em}
+@media (max-width:700px){.herocard .deco{width:110px;height:100px;right:-10px;top:-10px;opacity:.5}.herocard .txt{max-width:100%}.herocard{padding:24px 20px}}
+.eyebrow{font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--link)}
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:32px;align-items:center;padding-block:12px 32px}
+.hero h1{font-size:clamp(34px,6vw,52px);margin-top:8px}
+.hero p{color:var(--muted);max-width:34em}
+.bigtiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:340px}
+.bigtiles div{aspect-ratio:1;max-width:100%;border-radius:20px;background:var(--accent);color:var(--accent-fg);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:clamp(36px,8vw,56px)}
+.bigtiles .o{}
+.bigtiles .s{background:var(--amber);color:#1F1512}
+.progressbar{height:12px;border-radius:99px;background:var(--soft);overflow:hidden}
+.progressbar i{display:block;height:100%;background:var(--amber);border-radius:99px}
+.weeks{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:20px;max-width:820px}
+.wk{display:flex;gap:16px;align-items:flex-start;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--surface);text-decoration:none;color:var(--fg)}
+.wk:hover{border-color:var(--accent)}
+.letter{flex:none;width:52px;height:52px;border-radius:12px;background:var(--accent);color:var(--accent-fg);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:24px}
+.letter.o{}
+.letter.s{background:var(--amber);color:#1F1512}
+.wk h3{font-size:20px;margin-top:2px}
+a.stat{display:block;text-decoration:none;color:var(--fg);cursor:pointer}
+a.stat:hover{border-color:var(--amber)}
+a.stat .go{display:block;margin-top:6px;font-size:15px;font-weight:600;color:var(--link)}
+.journey{position:relative;margin-top:20px;display:flex;flex-direction:column;gap:22px}
+.journey::before{content:"";position:absolute;left:25px;top:20px;bottom:20px;width:3px;border-radius:2px;background:var(--line)}
+.jmod{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;align-items:start}
+.jmod .letter{position:relative;z-index:1}
+.jmod.complete .letter{background:var(--good);color:#FFFFFF}
+.jcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.jcard h3{font-size:20px;margin-bottom:8px}
+.jrow{display:flex;align-items:center;gap:12px;min-height:48px;border-top:1px solid var(--line)}
+.jrow:first-of-type{border-top:0}
+.jrow input{width:26px;height:26px;flex:none;accent-color:var(--good)}
+.jrow button{flex:1;text-align:left;background:none;border:0;padding:8px 0;font:inherit;color:var(--fg);cursor:pointer}
+.jrow button:hover{color:var(--link);text-decoration:underline}
+.today{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:14px;margin:0 0 18px}
+.todaycard{display:flex;gap:16px;align-items:center;padding:18px;border-radius:16px;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line)}
+.todaycard.ex{background:var(--amber-soft);border-color:var(--amber)}
+.todaycard:hover{border-color:var(--amber)}
+.todaycard .ico{flex:none;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--accent)}
+.todaycard.ex .ico{background:var(--amber)}
+.todaycard b{display:block;font-family:var(--display);font-size:20px}
+.todaycard span{color:var(--muted);font-size:16px}
+.exgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:22px;max-width:820px}
+.excard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.excard.rec{border:2px solid var(--amber)}
+.excard .top{display:flex;gap:14px;align-items:center}
+.excard h3{font-size:20px}
+.excard .meta{color:var(--muted);font-size:16px}
+.recchip{align-self:flex-start;font-family:var(--display);font-size:13px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--amber);color:#1F1512}
+.excard .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:12px}
+.cal .dow{text-align:center;font-size:14px;font-weight:600;color:var(--muted);padding-bottom:4px}
+.cal .day{aspect-ratio:1;max-width:100%;border-radius:10px;background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:16px;font-variant-numeric:tabular-nums;position:relative}
+.cal .day.blank{background:transparent}
+.cal .day.s1{background:var(--amber-soft);font-weight:700}
+.cal .day.s2{background:var(--amber);color:#1F1512;font-weight:700}
+.cal .day.today{outline:2px solid var(--fg);outline-offset:-2px}
+.cal .day .dots{font-size:11px;line-height:1}
+.calhead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.chart{width:100%;height:auto;display:block;margin-top:12px}
+.chart .bar{fill:var(--accent)}
+.chart .bar.cur{fill:var(--amber)}
+.chart text{fill:var(--muted);font-family:var(--body);font-size:13px}
+.chart .val{fill:var(--fg);font-weight:700}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .goal{stroke:var(--fg);stroke-width:1.5;stroke-dasharray:5 4}
+.legendrow{display:flex;gap:16px;flex-wrap:wrap;font-size:15px;color:var(--muted);margin-top:8px}
+.legendrow i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:14px;margin:4px 0 28px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.stat b{display:block;font-family:var(--display);font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:16px}
+.wk .meta{font-size:16px;color:var(--muted);margin-top:4px}
+.done-chip{display:inline-block;margin-top:8px;font-size:14px;font-family:var(--display);font-weight:600;padding:3px 10px;border-radius:99px;background:var(--good-soft);color:var(--good)}
+.player{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+@media (max-width:820px){.player{grid-template-columns:minmax(0,1fr)}}
+.lesson h1{font-size:clamp(28px,4.5vw,40px);margin-top:6px}
+.lesson .summary{color:var(--muted);margin:10px 0 20px;max-width:38em}
+.video{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:16px;overflow:hidden;background:var(--soft);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--fg);border:1px solid var(--line)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video .play{width:84px;height:84px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center}
+.video .play svg{margin-left:6px}
+.video .cap{position:absolute;left:16px;bottom:14px;right:16px;font-family:var(--display);font-weight:600;font-size:16px}
+.points{display:flex;flex-direction:column;gap:10px;margin:22px 0 0;padding:0;list-style:none}
+.points li{display:flex;gap:12px}
+.points li::before{content:"";flex:none;width:9px;height:9px;margin-top:11px;border-radius:50%;background:var(--amber)}
+.panel{margin-top:24px;padding:20px;border-radius:16px;background:var(--soft)}
+.panel h3{font-size:20px;margin-bottom:10px}
+.try{background:var(--amber-soft)}
+.try .eyebrow{color:var(--amber-ink)}
+.lessonnav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+aside.rail{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+aside.rail h2{font-size:18px;margin-bottom:10px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rail button{width:100%;display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 10px;border-radius:10px;border:0;background:transparent;color:var(--fg);font:inherit;font-size:17px;text-align:left;cursor:pointer}
+.rail button[aria-current="true"]{background:var(--soft);font-weight:700}
+.tick{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center}
+.tick.on{background:var(--accent);border-color:var(--accent)}
+.check{display:flex;align-items:center;gap:12px;margin-top:20px;font-size:18px;cursor:pointer}
+.check input{width:28px;height:28px;accent-color:var(--accent)}
+.quiz fieldset{border:0;padding:0;margin:0 0 22px}
+.quiz legend{font-weight:700;margin-bottom:10px}
+.opt{display:block;width:100%;text-align:left;min-height:52px;margin-bottom:8px;padding:12px 16px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;cursor:pointer}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.feedback{margin-top:4px;font-weight:700}
+.feedback.right{color:var(--good)}.feedback.wrong{color:var(--bad)}
+.pain{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:18px}
+.pain label{font-weight:700;display:block;margin-bottom:6px}
+.pain input[type=range]{width:100%;height:36px;accent-color:var(--accent)}
+.zone{display:inline-block;margin-top:6px;padding:4px 12px;border-radius:99px;font-family:var(--display);font-weight:600;font-size:15px}
+.zone.g{background:var(--good-soft);color:var(--good)}.zone.y{background:var(--warn-soft);color:var(--warn-ink)}.zone.r{background:var(--bad-soft);color:var(--bad)}
+.tablewrap{overflow-x:auto;margin-top:12px}
+table{border-collapse:collapse;width:100%;min-width:480px;font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--line);padding:10px;text-align:left}
+th{font-family:var(--display);font-size:16px;background:var(--soft)}
+td input{width:100%;min-height:44px;font:inherit;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg)}
+.note{font-size:16px;color:var(--muted)}
+.stop{border:2px solid var(--bad);border-radius:16px;padding:16px 20px;margin-top:20px}
+.stop strong{color:var(--bad)}
+footer{border-top:1px solid var(--line);padding-block:24px;font-size:15px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.wk,.btn,.opt{transition:border-color .15s,background .15s}}
+</style>
+</head>
+<body>
+
+
+<div class="shell">
+<aside class="side" aria-label="Course menu">
+  <a class="brand" href="#home" aria-label="BOONES home"><svg class="mark" width="40" height="40" viewBox="0 0 44 44" aria-hidden="true"><circle cx="15" cy="13" r="9" fill="none" stroke="var(--amber)" stroke-width="3.5"/><circle cx="25" cy="27" r="15" fill="var(--amber)"/></svg>BOONES</a>
+  <nav id="sidenav" aria-label="Main"></nav>
+</aside>
+<main><div class="wrap" id="app"></div>
+<footer style="margin-top:56px"><div class="wrap">BOONES is an original bone and joint health program by Adrian Smith, PT. These videos support, but do not replace, advice from your physiotherapist.</div></footer>
+</main>
+</div>
+
+
+<script>
+/* ============ EDIT HERE ============
+   Paste each YouTube video ID into "youtube" (the part after watch?v= ).
+   EMBED_VIDEOS: keep false inside Claude. Set true once this page is hosted on your own website
+   so videos play right on the page instead of opening YouTube. */
+const EMBED_VIDEOS = true;
+
+const COURSE = [
+ {id:"start", letter:"", title:"Start here", sub:"Welcome, safety and your starting tests", lessons:[
+  {id:"welcome", type:"video", title:"Welcome to BOONES", youtube:"", minutes:3,
+   summary:"What the next 6 weeks look like and how to get the most out of them.",
+   points:["6 weeks of education and exercise for bones and joints","One short talk and follow-along exercise videos each week","Go at your own pace. Steady beats fast."]},
+  {id:"setup", type:"video", title:"Safety and setup", youtube:"", minutes:5,
+   summary:"Set up a safe space at home before you start.",
+   points:["A sturdy chair without wheels and a counter to hold","Supportive shoes and a clear floor","Water nearby, and a phone within reach"],
+   stop:true},
+  {id:"pain", type:"pain", title:"How much discomfort is okay?",
+   summary:"Some discomfort during exercise is normal and safe. Use this guide every session."},
+  {id:"tests", type:"tests", title:"Your starting tests",
+   summary:"Write down your starting numbers so you can see your progress at 6 weeks."}
+ ]},
+ {id:"week1", letter:"B", title:"Balance", sub:"Steady on your feet, and in life", lessons:[
+  {id:"talk", type:"video", title:"The balance talk", youtube:"", minutes:10, summary:"How balance works and how to lower your risk of falling.",
+   points:["Balance relies on your eyes, inner ear and joint sense","1 in 3 adults over 65 falls each year. Falls cause most broken hips.","Strong legs, good shoes, a walking aid if needed and a safe home lower your risk","Fear of falling makes us move less, which weakens balance"],
+   tryThis:"Hold the counter and stand on one leg while the kettle boils."},
+  {id:"class", type:"video", title:"Week 1 exercise class", youtube:"", minutes:30, summary:"Follow along. Today, take it easy and learn the moves.", pain:true},
+  {id:"quiz", type:"quiz", title:"Quick check", questions:[
+   {q:"Which of these lowers your risk of falling?", opts:["Sitting more to stay safe","Stronger legs and supportive shoes","Avoiding stairs completely"], a:1, why:"Strength and good footwear make you steadier. Moving less does the opposite."},
+   {q:"Fear of falling often leads to...", opts:["Better balance","Moving less, which weakens balance","No change at all"], a:1, why:"That is why we keep moving, safely."}]}
+ ]},
+ {id:"week2", letter:"O", title:"Osteoarthritis", sub:"Joints that move feel better", lessons:[
+  {id:"talk", type:"video", title:"The arthritis talk", youtube:"", minutes:10, summary:"What osteoarthritis really is, and what helps most.",
+   points:["Arthritis affects the whole joint, not just the cartilage","It is not just wear and tear. Cartilage needs movement to stay healthy.","X-rays often don't match pain. Your symptoms guide treatment.","Best first steps: exercise, education and a healthy weight"],
+   tryThis:"Pick one activity you avoid. How could you change it instead of stopping?"},
+  {id:"class", type:"video", title:"Week 2 exercise class", youtube:"", minutes:30, summary:"Follow along at your own level.", pain:true},
+  {id:"quiz", type:"quiz", title:"Quick check", questions:[
+   {q:"Osteoarthritis is just wear and tear from using your joints.", opts:["True","False"], a:1, why:"Joints need movement. Cartilage stays healthier when it is loaded."},
+   {q:"What is the best first treatment for arthritis?", opts:["Rest until it stops hurting","Exercise and education","Surgery"], a:1, why:"Exercise and education come first, with a healthy weight if needed."}]}
+ ]},
+ {id:"week3", letter:"O", title:"Bone health", sub:"Osteopenia and osteoporosis", lessons:[
+  {id:"talk", type:"video", title:"The bone health talk", youtube:"", minutes:10, summary:"How bones get stronger, and how to protect them.",
+   points:["Low bone density raises fracture risk. A DEXA scan measures it.","Bones get stronger when you load them. This is Wolff's Law.","Best for bones: weight-bearing, strength and balance work. Swimming does little for bone.","Avoid lifting while bending and twisting your back"],
+   tryThis:"Over 65, or broke a bone in a minor fall? Ask your doctor about a bone scan."},
+  {id:"class", type:"video", title:"Week 3 exercise class", youtube:"", minutes:30, summary:"Follow along at your own level.", pain:true},
+  {id:"quiz", type:"quiz", title:"Quick check", questions:[
+   {q:"Which is best for building stronger bones?", opts:["Swimming","Weight-bearing and strength training","Stretching only"], a:1, why:"Bones respond to load. Swimming is great for joints and heart, but does little for bone."},
+   {q:"Which movement should you be careful with?", opts:["Walking","Lifting while bending and twisting","Standing up from a chair"], a:1, why:"Bending and twisting under load puts extra stress on the spine."}]}
+ ]},
+ {id:"week4", letter:"N", title:"Normal activities", sub:"Keep doing what matters to you", lessons:[
+  {id:"talk", type:"video", title:"The everyday life talk", youtube:"", minutes:10, summary:"Staying active and social, even when things change.",
+   points:["Keep doing what matters to you, whatever that looks like","Adapt, don't stop. Change how you do it before giving it up.","Name your barriers: time, pain, cost, weather, or not knowing how","Staying social helps you stay active"],
+   tryThis:"Write down one activity you want to keep doing, and one way to make it easier."},
+  {id:"class", type:"video", title:"Week 4 exercise class", youtube:"", minutes:30, summary:"Follow along at your own level.", pain:true},
+  {id:"quiz", type:"quiz", title:"Quick check", questions:[
+   {q:"Gardening makes your knee sore. What is the best plan?", opts:["Give up gardening","Adapt it, like using a kneeling pad or shorter sessions","Push through the pain"], a:1, why:"Adapt, don't stop."}]}
+ ]},
+ {id:"week5", letter:"E", title:"Exercise", sub:"The right amount, done often", lessons:[
+  {id:"talk", type:"video", title:"The exercise talk", youtube:"", minutes:10, summary:"How much, how hard, and how to progress safely.",
+   points:["Aim for 150 minutes of moderate activity a week","Add strength training 2 days a week, plus balance work","Start low, go slow. Rest days help your body adapt.","Consistency beats intensity. Holding steady is progress too."],
+   tryThis:"Plan your week with FITT: how often, how hard, what type, how long."},
+  {id:"class", type:"video", title:"Week 5 exercise class", youtube:"", minutes:30, summary:"Follow along at your own level.", pain:true},
+  {id:"quiz", type:"quiz", title:"Quick check", questions:[
+   {q:"How much moderate activity should adults aim for each week?", opts:["30 minutes","150 minutes","500 minutes"], a:1, why:"Canada's guidelines recommend 150 minutes a week, plus strength and balance work."},
+   {q:"What matters more over time?", opts:["Consistency","Intensity"], a:0, why:"The best exercise is the one you keep doing."}]}
+ ]},
+ {id:"week6", letter:"S", title:"Symptom management", sub:"Tools for when flare-ups happen", lessons:[
+  {id:"talk", type:"video", title:"The flare-up talk", youtube:"", minutes:10, summary:"What flare-ups are and your plan for handling them.",
+   points:["Flare-ups happen. More pain for a while does not mean new damage.","Ease off, don't stop. Do about half for a few days.","Use what helps: heat or ice, gentle movement, a short walk","Build back up as it settles"],
+   tryThis:"Call your physio if a flare-up hasn't settled in 1 to 2 weeks, or a joint is hot, red and swollen."},
+  {id:"class", type:"video", title:"Week 6 exercise class", youtube:"", minutes:30, summary:"Follow along at your own level.", pain:true},
+  {id:"tests", type:"tests", title:"Your 6-week tests", summary:"Repeat your tests and compare with where you started."},
+  {id:"quiz", type:"quiz", title:"Quick check", questions:[
+   {q:"A flare-up usually means...", opts:["You damaged your joint","A short-term increase in symptoms","You should stop exercising for good"], a:1, why:"Flare-ups are temporary. Ease off, then build back up."}]}
+ ]}
+];
+/* ============ END OF EDIT AREA ============ */
+
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem("boones:"+k); return v===null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("boones:"+k, JSON.stringify(v)); }catch(e){} }
+};
+let done = store.get("done", {});
+let current = {};
+const app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const key = (m,l) => m.id+"/"+l.id;
+const letterClass = l => l==="O" ? "letter o" : l==="S" ? "letter s" : "letter";
+const total = COURSE.reduce((n,m)=>n+m.lessons.length,0);
+const doneCount = () => Object.keys(done).filter(k=>done[k]).length;
+const modDone = m => m.lessons.filter(l=>done[key(m,l)]).length;
+
+function zone(v){ v=+v; return v<=2 ? ["g","Go ahead"] : v<=5 ? ["y","Okay if it settles by tomorrow"] : ["r","Too much. Ease off"]; }
+
+function lastPain(){
+  const logs = COURSE.flatMap(m=>m.lessons.filter(l=>l.pain).map(l=>store.get("pain/"+key(m,l),null))).filter(Boolean);
+  return logs.length ? logs[logs.length-1].after+"/10" : "None yet";
+}
+
+function home(){
+  const pct = Math.round(doneCount()/total*100);
+  const next = COURSE.find(m => modDone(m) < m.lessons.length) || COURSE[0];
+  app.innerHTML = `
+  <section class="herocard">
+    <svg class="deco" viewBox="0 0 190 170" aria-hidden="true"><circle cx="58" cy="52" r="40" fill="none" stroke="var(--amber)" stroke-width="12"/><circle cx="120" cy="104" r="64" fill="var(--amber)"/></svg>
+    <div class="txt">
+      <div class="eyebrow">${doneCount() ? "Welcome back" : "Welcome"}</div>
+      <h1>Move with more confidence in 6 weeks</h1>
+      <p>Short talks and follow-along exercise classes for balance, arthritis and bone health. One lesson at a time, at your own pace.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
+        <a class="btn" href="#${next.id}">${doneCount() ? "Continue: "+esc(next.title) : "Start here"}</a>
+        <a class="btn ghost" href="#exercises">Exercises only</a>
+      </div>
+      <div style="margin-top:20px;max-width:420px">
+        <div style="display:flex;justify-content:space-between;font-size:16px;color:var(--muted);margin-bottom:6px"><span>Your progress</span><span>${doneCount()} of ${total} items completed</span></div>
+        <div class="progressbar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Course progress"><i style="width:${pct}%"></i></div>
+      </div>
+    </div>
+  </section>
+  <div class="today">
+    <a class="todaycard ex" href="#exercises"><div class="ico" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2.4" fill="#1F1512"/><path d="M5 9 L12 11 L19 8 M12 11 V15 L8 21 M12 15 L16 21" fill="none" stroke="#1F1512" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Today's exercise class</b><span>${esc(recClass().m.title)} class, about 30 minutes</span></div></a>
+    <a class="todaycard" href="#${recClass().m.id}"><div class="ico" aria-hidden="true"><svg width="24" height="26" viewBox="0 0 22 24"><path d="M2 1 L20 12 L2 23Z" fill="var(--accent-fg)"/></svg></div><div><b>This week's talk</b><span>10 minutes on ${esc(recClass().m.title.toLowerCase())}</span></div></a>
+  </div>
+  <div class="stats">
+    <a class="stat" href="#journey"><b>${doneCount()} of ${total}</b><span>items completed</span><span class="go">See my checklist</span></a>
+    <a class="stat" href="#${next.id}"><b>${next.letter ? "Week "+COURSE.indexOf(next) : "Start here"}</b><span>${esc(next.title)}</span><span class="go">Go to this week</span></a>
+    <a class="stat" href="#painlog"><b>${lastPain()}</b><span>last pain check, after class</span><span class="go">Open pain checks</span></a>
+  </div>
+  <h2 style="font-size:24px">Your 6 weeks</h2>
+  <div class="weeks">
+    ${COURSE.map((m,i)=>`
+      <a class="wk" href="#${m.id}">
+        <div class="${m.letter ? letterClass(m.letter) : "letter s"}" aria-hidden="true">${m.letter || "&#9654;"}</div>
+        <div><div class="eyebrow">${i===0 ? "Before you begin" : "Week "+i}</div><h3>${esc(m.title)}</h3>
+        <div class="meta">${esc(m.sub)}</div>
+        <div class="meta">${modDone(m)} of ${m.lessons.length} items completed</div>
+        ${modDone(m)===m.lessons.length ? '<span class="done-chip">Complete</span>' : ""}</div>
+      </a>`).join("")}
+  </div>`;
+}
+
+function videoBlock(l){
+  if(!l.youtube) return `<div class="video" role="img" aria-label="Video coming soon"><div class="play" aria-hidden="true"><svg width="30" height="34" viewBox="0 0 30 34"><path d="M0 0 L30 17 L0 34Z" fill="var(--accent-fg)"/></svg></div><div class="cap">Video coming soon${l.minutes ? " · about "+l.minutes+" min" : ""}</div></div>`;
+  if(EMBED_VIDEOS) return `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${esc(l.youtube)}" title="${esc(l.title)}" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`;
+  return `<a class="video" href="https://www.youtube.com/watch?v=${esc(l.youtube)}" target="_blank" rel="noopener"><div class="play" aria-hidden="true"><svg width="30" height="34" viewBox="0 0 30 34"><path d="M0 0 L30 17 L0 34Z" fill="var(--accent-fg)"/></svg></div><div class="cap">Watch on YouTube${l.minutes ? " · about "+l.minutes+" min" : ""}</div></a>`;
+}
+
+function painTool(m,l){
+  const k = "pain/"+key(m,l);
+  const v = store.get(k, {before:2, after:2});
+  const [zb,tb] = zone(v.before), [za,ta] = zone(v.after);
+  return `<div class="panel"><h3>Pain check</h3>
+   <div class="pain">
+    <div><label for="pb">Before class: <span id="pbv">${v.before}</span>/10</label><input id="pb" type="range" min="0" max="10" value="${v.before}"><span class="zone ${zb}" id="pbz">${tb}</span></div>
+    <div><label for="pa">After class: <span id="pav">${v.after}</span>/10</label><input id="pa" type="range" min="0" max="10" value="${v.after}"><span class="zone ${za}" id="paz">${ta}</span></div>
+   </div>
+   <p class="note" style="margin:12px 0 0">Some discomfort is normal. If pain is worse the next morning, do a little less next time.</p></div>`;
+}
+
+function testsTool(){
+  const t = store.get("tests", {});
+  const rows = [["tug","Timed Up and Go (sec)"],["sts","Sit to stand in 30 sec (reps)"],["walk","10 m walk (sec)"],["sloR","One-leg stand, right (sec)"],["sloL","One-leg stand, left (sec)"],["painT","Pain today (/10)"]];
+  return `<div class="tablewrap"><table><thead><tr><th>Test</th><th>Start</th><th>6 weeks</th></tr></thead><tbody>
+   ${rows.map(([id,label])=>`<tr><td>${label}</td>${["s","w6"].map(c=>`<td><input id="t-${id}-${c}" inputmode="decimal" aria-label="${label}, ${c==="s"?"start":"6 weeks"}" value="${esc((t[id]||{})[c]||"")}"></td>`).join("")}</tr>`).join("")}
+  </tbody></table></div><p class="note">Faster times, more reps and longer holds all mean progress. Your numbers stay on this device only.</p>`;
+}
+
+function quizTool(l){
+  return `<form class="quiz" onsubmit="return false">${l.questions.map((q,qi)=>`
+    <fieldset><legend>${qi+1}. ${esc(q.q)}</legend>
+    ${q.opts.map((o,oi)=>`<button type="button" class="opt" data-q="${qi}" data-o="${oi}">${esc(o)}</button>`).join("")}
+    <div class="feedback" id="fb${qi}" aria-live="polite"></div></fieldset>`).join("")}</form>`;
+}
+
+function lessonBody(m,l){
+  let html = `<div class="lesson"><div class="eyebrow">${m.letter ? "Week "+COURSE.indexOf(m)+" · "+esc(m.title) : "Start here"}</div><h1>${esc(l.title)}</h1>${l.summary ? `<p class="summary">${esc(l.summary)}</p>` : ""}`;
+  if(l.type==="video") html += videoBlock(l);
+  if(l.points) html += `<ul class="points">${l.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`;
+  if(l.stop) html += `<div class="stop"><strong>Stop and get help right away</strong> if you have chest pain, dizziness, a fall, or shortness of breath that doesn't settle.</div>`;
+  if(l.tryThis) html += `<div class="panel try"><div class="eyebrow">Try this week</div><p style="margin:6px 0 0">${esc(l.tryThis)}</p></div>`;
+  if(l.pain) html += painTool(m,l);
+  if(l.type==="pain") html += `<div class="pain" style="margin-top:8px">
+     <div class="panel" style="margin:0;background:var(--good-soft)"><h3 style="color:var(--good)">0 to 2: Go ahead</h3>Keep going as planned.</div>
+     <div class="panel" style="margin:0;background:var(--warn-soft)"><h3 style="color:var(--warn-ink)">3 to 5: Okay</h3>If it settles by the next day.</div>
+     <div class="panel" style="margin:0;background:var(--bad-soft)"><h3 style="color:var(--bad)">6 to 10: Too much</h3>Ease off and do less next time.</div></div>`;
+  if(l.type==="tests") html += testsTool();
+  if(l.type==="quiz") html += quizTool(l);
+  html += `<label class="check"><input type="checkbox" id="mark" ${done[key(m,l)]?"checked":""}> I've finished this lesson</label></div>`;
+  return html;
+}
+
+function module(m){
+  let i = current[m.id] ?? Math.max(0, m.lessons.findIndex(l=>!done[key(m,l)]));
+  if(i<0) i=0;
+  current[m.id]=i;
+  const l = m.lessons[i];
+  const mi = COURSE.indexOf(m);
+  const nextMod = COURSE[mi+1];
+  app.innerHTML = `<div class="player">
+    <div>${lessonBody(m,l)}
+      <div class="lessonnav">
+        <button class="btn ghost" id="prev" ${i===0?"disabled":""}>Previous</button>
+        ${i < m.lessons.length-1 ? `<button class="btn" id="next">Next lesson</button>` : nextMod ? `<a class="btn" href="#${nextMod.id}">Go to week ${mi+1}: ${esc(nextMod.title)}</a>` : `<a class="btn" href="#progress">See my progress</a>`}
+      </div></div>
+    <aside class="rail" aria-label="Lessons this week"><h2>${esc(m.title)}</h2><ol>
+      ${m.lessons.map((x,xi)=>`<li><button data-i="${xi}" aria-current="${xi===i}"><span class="tick ${done[key(m,x)]?"on":""}" aria-hidden="true">${done[key(m,x)]?'<svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="var(--accent-fg)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>':""}</span>${xi+1}. ${esc(x.title)}</button></li>`).join("")}
+    </ol></aside></div>`;
+
+  const go = n => { current[m.id]=n; module(m); window.scrollTo({top:0}); };
+  document.getElementById("prev").onclick = () => go(i-1);
+  const nx = document.getElementById("next");
+  if(nx) nx.onclick = () => { done[key(m,l)]=true; store.set("done",done); if(l.pain) autoLog(m.id); go(i+1); };
+  app.querySelectorAll(".rail button").forEach(b => b.onclick = () => go(+b.dataset.i));
+  document.getElementById("mark").onchange = e => { done[key(m,l)]=e.target.checked; store.set("done",done); if(e.target.checked && l.pain) autoLog(m.id); module(m); };
+
+  if(l.pain){
+    const k = "pain/"+key(m,l);
+    [["pb","before"],["pa","after"]].forEach(([id,f])=>{
+      const el = document.getElementById(id);
+      el.oninput = () => { const v=store.get(k,{before:2,after:2}); v[f]=+el.value; store.set(k,v);
+        document.getElementById(id+"v").textContent=el.value; const [z,t]=zone(el.value); const zz=document.getElementById(id+"z"); zz.className="zone "+z; zz.textContent=t; };
+    });
+  }
+  if(l.type==="tests"){
+    app.querySelectorAll("td input").forEach(inp => inp.oninput = () => {
+      const [,id,c] = inp.id.split("-"); const t=store.get("tests",{}); t[id]=t[id]||{}; t[id][c]=inp.value; store.set("tests",t);
+    });
+  }
+  if(l.type==="quiz"){
+    app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+      const q = l.questions[+b.dataset.q], right = +b.dataset.o===q.a;
+      b.closest("fieldset").querySelectorAll(".opt").forEach(o=>o.classList.remove("right","wrong"));
+      b.classList.add(right?"right":"wrong");
+      const fb = document.getElementById("fb"+b.dataset.q);
+      fb.className = "feedback "+(right?"right":"wrong");
+      fb.textContent = (right ? "That's right. " : "Not quite. ") + q.why;
+    });
+  }
+}
+
+function progress(){
+  const t = store.get("tests",{});
+  const rows = [["tug","Timed Up and Go (sec)",-1],["sts","Sit to stand in 30 sec (reps)",1],["walk","10 m walk (sec)",-1],["sloR","One-leg stand, right (sec)",1],["sloL","One-leg stand, left (sec)",1]];
+  const log = COURSE.flatMap(m=>m.lessons.filter(l=>l.pain).map(l=>({m,l,v:store.get("pain/"+key(m,l),null)}))).filter(x=>x.v);
+  app.innerHTML = `<div class="eyebrow">My progress</div><h1 style="font-size:clamp(30px,5vw,44px);margin-top:6px">How you're doing</h1>
+   <p class="summary" style="color:var(--muted)">${doneCount()} of ${total} items completed. Everything here is saved on this device only.</p>
+   <div class="panel"><h3>My tests</h3><div class="tablewrap"><table><thead><tr><th>Test</th><th>Start</th><th>6 weeks</th><th>Change</th></tr></thead><tbody>
+   ${rows.map(([id,label,dir])=>{ const s=parseFloat((t[id]||{}).s), w=parseFloat((t[id]||{}).w6);
+     const ch = isNaN(s)||isNaN(w) ? "" : ((w-s)*dir>0 ? `<span class="zone g">Better by ${Math.abs(w-s).toFixed(1).replace(".0","")}</span>` : (w===s ? "Same" : `<span class="zone y">${Math.abs(w-s).toFixed(1).replace(".0","")} ${dir<0?"slower":"less"}</span>`));
+     return `<tr><td>${label}</td><td>${isNaN(s)?"":s}</td><td>${isNaN(w)?"":w}</td><td>${ch}</td></tr>`;}).join("")}
+   </tbody></table></div><p class="note">Fill these in from the "Your starting tests" and "Your 6-week tests" lessons.</p></div>
+   <div class="panel"><h3>Pain before and after class</h3>
+   ${log.length ? `<div class="tablewrap"><table><thead><tr><th>Class</th><th>Before</th><th>After</th></tr></thead><tbody>${log.map(x=>`<tr><td>${esc(x.l.title)}</td><td>${x.v.before}/10</td><td>${x.v.after}/10</td></tr>`).join("")}</tbody></table></div>`
+     : `<p style="margin:0">No classes logged yet. Use the pain check under each exercise class.</p>`}</div>
+   <div style="margin-top:24px"><a class="btn" href="#home">Back to all weeks</a></div>`;
+}
+
+function openLesson(mid, i){ current[mid]=i; if(location.hash==="#"+mid) route(); else location.hash=mid; }
+
+function recClass(){
+  const weeks = COURSE.filter(m=>m.letter);
+  const m = weeks.find(w => !w.lessons.filter(l=>l.pain).every(l=>done[key(w,l)])) || weeks[weeks.length-1];
+  const i = m.lessons.findIndex(l=>l.pain);
+  return {m, i};
+}
+
+function exercises(){
+  const rec = recClass();
+  const sessions = store.get("sessions", {});
+  const weeks = COURSE.filter(m=>m.letter);
+  app.innerHTML = `<div class="eyebrow">Exercises</div><h1 style="font-size:clamp(30px,5vw,42px);margin-top:6px">Exercise classes</h1>
+   <p class="summary" style="color:var(--muted);margin:10px 0 0;max-width:40em">Follow-along classes, about 30 minutes each. Aim for 2 classes a week. Start with the recommended class, or repeat an earlier week any time.</p>
+   <div class="stop" style="margin-top:16px;border-color:var(--line)"><strong style="color:var(--fg)">Before you start:</strong> chair and counter nearby, supportive shoes, water within reach. Some discomfort is normal. Stop if you have chest pain, dizziness or a fall.</div>
+   <div class="exgrid">${weeks.map(m=>{ const i=m.lessons.findIndex(l=>l.pain), l=m.lessons[i], n=(sessions[m.id]||[]).length, isRec=m===rec.m;
+     return `<div class="excard ${isRec?"rec":""}">
+       ${isRec?'<span class="recchip">Recommended now</span>':""}
+       <div class="top"><div class="${letterClass(m.letter)}" aria-hidden="true">${m.letter}</div><div><div class="eyebrow">Week ${COURSE.indexOf(m)}</div><h3>${esc(m.title)} class</h3></div></div>
+       <div class="meta">About ${l.minutes||30} minutes · Done ${n} ${n===1?"time":"times"}</div>
+       <div class="row"><button class="btn small" data-m="${m.id}" data-i="${i}">Start exercises</button><button class="btn small ghost" data-log="${m.id}">I did this today</button></div>
+       <div class="note" id="log-${m.id}" aria-live="polite"></div>
+     </div>`;}).join("")}</div>`;
+  app.querySelectorAll("button[data-m]").forEach(b => b.onclick = () => openLesson(b.dataset.m, +b.dataset.i));
+  app.querySelectorAll("button[data-log]").forEach(b => b.onclick = () => {
+    const ss = store.get("sessions", {}); const id=b.dataset.log; ss[id]=(ss[id]||[]).concat(new Date().toISOString()); store.set("sessions", ss);
+    const wm=COURSE.find(x=>x.id===id); const wl=wm.lessons.find(l=>l.pain); done[key(wm,wl)]=true; store.set("done",done);
+    exercises(); const n=document.getElementById("log-"+id); if(n) n.textContent="Nice work. Session saved.";
+  });
+}
+
+const WEEKLY_GOAL = 2;
+function allSessions(){
+  const ss = store.get("sessions", {});
+  return Object.entries(ss).flatMap(([mid,arr]) => arr.map(t => ({mid, d: parseWhen(t), hasTime: t.length>10})))
+    .sort((a,b)=>a.d-b.d);
+}
+function parseWhen(t){ if(t.length===10){ const [y,m,d]=t.split("-").map(Number); return new Date(y,m-1,d); } return new Date(t); }
+function dayKey(d){ return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+function weekStart(d){ const x=new Date(d.getFullYear(),d.getMonth(),d.getDate()); const wd=(x.getDay()+6)%7; x.setDate(x.getDate()-wd); return x; }
+function autoLog(mid){
+  const ss = store.get("sessions", {}); const today = dayKey(new Date());
+  if((ss[mid]||[]).some(t=>dayKey(parseWhen(t))===today)) return;
+  ss[mid]=(ss[mid]||[]).concat(new Date().toISOString()); store.set("sessions", ss);
+}
+let calOffset = 0;
+function attendance(){
+  const list = allSessions();
+  const now = new Date(), ws = weekStart(now);
+  const thisWeek = list.filter(x=>x.d>=ws).length;
+  const thisMonth = list.filter(x=>x.d.getMonth()===now.getMonth() && x.d.getFullYear()===now.getFullYear()).length;
+  // weeks in a row meeting goal, counting back from last complete week (this week counts if already met)
+  let streak=0; { let w=new Date(ws); if(thisWeek<WEEKLY_GOAL) w.setDate(w.getDate()-7);
+    while(true){ const e=new Date(w); e.setDate(e.getDate()+7); const n=list.filter(x=>x.d>=w&&x.d<e).length; if(n>=WEEKLY_GOAL){streak++; w.setDate(w.getDate()-7);} else break; } }
+  // last 8 weeks
+  const weeks=[]; for(let i=7;i>=0;i--){ const w=new Date(ws); w.setDate(w.getDate()-7*i); const e=new Date(w); e.setDate(e.getDate()+7); weeks.push({w, n:list.filter(x=>x.d>=w&&x.d<e).length, cur:i===0}); }
+  const maxN=Math.max(3, ...weeks.map(x=>x.n)); const W=640,H=240,L=34,B=34,T=20, bw=(W-L-10)/8;
+  const y=v=>T+(H-T-B)*(1-v/maxN);
+  const fmt=d=>d.toLocaleDateString(undefined,{month:"short",day:"numeric"});
+  const chart=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Exercise sessions per week, last 8 weeks">
+    ${Array.from({length:maxN+1},(_,v)=>`<line class="grid" x1="${L}" x2="${W-6}" y1="${y(v)}" y2="${y(v)}"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end">${v}</text>`).join("")}
+    ${weeks.map((x,i)=>{ const cx=L+i*bw+bw/2, h=y(0)-y(x.n), bwid=Math.min(44,bw-14);
+      return `<g><title>Week of ${fmt(x.w)}: ${x.n} ${x.n===1?"session":"sessions"}</title>
+      ${x.n?`<rect class="bar ${x.cur?"cur":""}" x="${cx-bwid/2}" y="${y(x.n)}" width="${bwid}" height="${h}" rx="4"/>`:""}
+      <rect x="${cx-bw/2}" y="${T}" width="${bw}" height="${H-T-B}" fill="transparent"/>
+      ${x.n?`<text class="val" x="${cx}" y="${y(x.n)-6}" text-anchor="middle">${x.n}</text>`:""}
+      <text x="${cx}" y="${H-12}" text-anchor="middle">${x.cur?"This wk":fmt(x.w)}</text></g>`;}).join("")}
+    <line class="goal" x1="${L}" x2="${W-6}" y1="${y(WEEKLY_GOAL)}" y2="${y(WEEKLY_GOAL)}"/>
+  </svg>`;
+  // calendar
+  const cm=new Date(now.getFullYear(), now.getMonth()+calOffset, 1);
+  const days=new Date(cm.getFullYear(), cm.getMonth()+1, 0).getDate(), lead=(cm.getDay()+6)%7;
+  const counts={}; list.forEach(x=>{ const k=dayKey(x.d); counts[k]=(counts[k]||0)+1; });
+  const cells=[]; for(let i=0;i<lead;i++) cells.push('<div class="day blank" aria-hidden="true"></div>');
+  for(let d=1; d<=days; d++){ const dt=new Date(cm.getFullYear(),cm.getMonth(),d), n=counts[dayKey(dt)]||0, today=dayKey(dt)===dayKey(now);
+    cells.push(`<div class="day ${n>=2?"s2":n?"s1":""} ${today?"today":""}" aria-label="${dt.toLocaleDateString(undefined,{month:"long",day:"numeric"})}: ${n} ${n===1?"session":"sessions"}">${d}${n?`<span class="dots" aria-hidden="true">${"&#9679;".repeat(Math.min(n,3))}</span>`:""}</div>`); }
+  const recent=list.slice(-8).reverse();
+  app.innerHTML = `<div class="eyebrow">My attendance</div><h1 style="font-size:clamp(30px,5vw,42px);margin-top:6px">How often you exercise</h1>
+   <p class="summary" style="color:var(--muted);margin:10px 0 0">Your goal is ${WEEKLY_GOAL} exercise classes a week. Sessions are saved with the date and time when you finish a class or tap "I did this today."</p>
+   <div class="stats" style="margin-top:20px">
+     <div class="stat"><b>${thisWeek} of ${WEEKLY_GOAL}</b><span>this week</span></div>
+     <div class="stat"><b>${thisMonth}</b><span>this month</span></div>
+     <div class="stat"><b>${streak} ${streak===1?"week":"weeks"}</b><span>in a row at your goal</span></div>
+     <div class="stat"><b>${list.length}</b><span>sessions in total</span></div>
+   </div>
+   <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn" id="logtoday">I exercised today</button><a class="btn ghost" href="#exercises">Go to exercises</a></div>
+   <div class="panel" style="background:var(--surface);border:1px solid var(--line)"><h3>Sessions per week</h3>
+     <div class="legendrow"><span><i style="background:var(--amber)"></i>This week</span><span><i style="border-top:2px dashed var(--fg);border-radius:0;height:0;width:18px"></i>Weekly goal (${WEEKLY_GOAL})</span></div>
+     ${chart}</div>
+   <div class="panel" style="background:var(--surface);border:1px solid var(--line)">
+     <div class="calhead"><button class="btn small ghost" id="calprev" aria-label="Previous month">&#8249;</button><h3 style="margin:0">${cm.toLocaleDateString(undefined,{month:"long",year:"numeric"})}</h3><button class="btn small ghost" id="calnext" aria-label="Next month" ${calOffset>=0?"disabled":""}>&#8250;</button></div>
+     <div class="cal">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(x=>`<div class="dow">${x}</div>`).join("")}${cells.join("")}</div>
+     <div class="legendrow"><span><i style="background:var(--amber-soft)"></i>1 session</span><span><i style="background:var(--amber)"></i>2 or more</span></div>
+   </div>
+   <div class="panel" style="background:var(--surface);border:1px solid var(--line)"><h3>Recent sessions</h3>
+   ${recent.length?`<div class="tablewrap"><table><thead><tr><th>Date</th><th>Time</th><th>Class</th></tr></thead><tbody>${recent.map(x=>{const m=COURSE.find(c=>c.id===x.mid);return `<tr><td>${x.d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"})}</td><td>${x.hasTime?x.d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"}):""}</td><td>${m?esc(m.title):"Exercise"}</td></tr>`;}).join("")}</tbody></table></div>`
+     :`<p style="margin:0">No sessions yet. Finish an exercise class or tap "I exercised today" to start your record.</p>`}</div>`;
+  document.getElementById("calprev").onclick=()=>{calOffset--; attendance();};
+  document.getElementById("calnext").onclick=()=>{ if(calOffset<0){calOffset++; attendance();} };
+  document.getElementById("logtoday").onclick=()=>{ const r=recClass(); const ss=store.get("sessions",{}); ss[r.m.id]=(ss[r.m.id]||[]).concat(new Date().toISOString()); store.set("sessions",ss); attendance(); };
+}
+
+function journey(){
+  app.innerHTML = `<div class="eyebrow">My journey</div><h1 style="font-size:clamp(30px,5vw,42px);margin-top:6px">Your 6-week checklist</h1>
+   <p class="summary" style="color:var(--muted);margin:10px 0 0">${doneCount()} of ${total} items completed. Tick an item off, or tap its name to open it.</p>
+   <div class="journey">${COURSE.map((m,mi)=>`
+    <div class="jmod ${modDone(m)===m.lessons.length?"complete":""}">
+      <div class="${m.letter ? letterClass(m.letter) : "letter s"}" aria-hidden="true">${modDone(m)===m.lessons.length ? "&#10003;" : (m.letter || "&#9654;")}</div>
+      <div class="jcard"><div class="eyebrow">${mi===0 ? "Before you begin" : "Week "+mi}</div><h3>${esc(m.title)}</h3>
+      ${m.lessons.map((l,li)=>`<div class="jrow"><input type="checkbox" id="j-${m.id}-${li}" aria-label="Mark ${esc(l.title)} done" ${done[key(m,l)]?"checked":""}><button data-m="${m.id}" data-i="${li}">${esc(l.title)}</button></div>`).join("")}
+      </div>
+    </div>`).join("")}</div>`;
+  app.querySelectorAll(".jrow input").forEach(c => c.onchange = () => {
+    const [,mid,li] = c.id.split("-"); const m = COURSE.find(x=>x.id===mid); done[key(m,m.lessons[+li])] = c.checked; store.set("done",done); journey();
+  });
+  app.querySelectorAll(".jrow button").forEach(b => b.onclick = () => openLesson(b.dataset.m, +b.dataset.i));
+}
+
+function painlog(){
+  const rows = COURSE.flatMap(m=>m.lessons.map((l,i)=>({m,l,i})).filter(x=>x.l.pain));
+  app.innerHTML = `<div class="eyebrow">Pain checks</div><h1 style="font-size:clamp(30px,5vw,42px);margin-top:6px">How your body is responding</h1>
+   <p class="summary" style="color:var(--muted);margin:10px 0 0">Rate your pain before and after each class. Some discomfort is normal. If pain is worse the next morning, do a little less next time.</p>
+   <div class="pain" style="margin-top:18px">
+     <div class="panel" style="margin:0;background:var(--good-soft)"><h3 style="color:var(--good)">0 to 2: Go ahead</h3>Keep going as planned.</div>
+     <div class="panel" style="margin:0;background:var(--warn-soft)"><h3 style="color:var(--warn-ink)">3 to 5: Okay</h3>If it settles by the next day.</div>
+     <div class="panel" style="margin:0;background:var(--bad-soft)"><h3 style="color:var(--bad)">6 to 10: Too much</h3>Ease off and do less next time.</div>
+   </div>
+   <div class="panel" style="background:var(--surface);border:1px solid var(--line)"><h3>My pain checks</h3><div class="tablewrap"><table><thead><tr><th>Class</th><th>Before</th><th>After</th><th></th></tr></thead><tbody>
+   ${rows.map(x=>{ const v=store.get("pain/"+key(x.m,x.l),null);
+     return `<tr><td>${esc(x.l.title)}</td><td>${v?v.before+"/10":"Not logged"}</td><td>${v?v.after+"/10":""}</td><td><button class="btn small ghost" data-m="${x.m.id}" data-i="${x.i}">${v?"Update":"Log pain"}</button></td></tr>`;}).join("")}
+   </tbody></table></div></div>`;
+  app.querySelectorAll("button[data-m]").forEach(b => b.onclick = () => openLesson(b.dataset.m, +b.dataset.i));
+}
+
+function sidenav(h){
+  const nav = document.getElementById("sidenav");
+  const wk = COURSE.filter(m=>m.letter);
+  const item = (href, inner, extra="") => `<a class="nav ${extra} ${h===href?"on":""}" href="#${href}">${inner}</a>`;
+  nav.innerHTML = item("start", "Start here", "cta")
+    + item("home", '<span class="num" aria-hidden="true">&#8962;</span>Home')
+    + item("exercises", '<span class="num" aria-hidden="true">&#9654;</span>Exercises')
+    + `<div class="label">Your 6 weeks</div>`
+    + wk.map((m,i)=>item(m.id, `<span class="num ${modDone(m)===m.lessons.length?"done":""}" aria-hidden="true">${modDone(m)===m.lessons.length?"&#10003;":i+1}</span><span class="wname">${esc(m.title)}</span>`)).join("")
+    + `<div class="bottom">` + item("journey", "My checklist") + item("progress", "My progress") + item("attendance", "My attendance") + `</div>`;
+  const on = nav.querySelector(".nav.on");
+  if(on && window.matchMedia("(max-width:820px)").matches){ const x = on.offsetLeft - nav.offsetLeft; nav.scrollLeft = (x + on.offsetWidth > nav.clientWidth - 16) ? x - 16 : 0; }
+}
+
+function route(){
+  const h = (location.hash||"#home").slice(1);
+  sidenav(h || "home");
+  const m = COURSE.find(x=>x.id===h);
+  if(m) module(m); else if(h==="progress") progress(); else if(h==="journey") journey(); else if(h==="painlog") painlog(); else if(h==="exercises") exercises(); else if(h==="attendance") attendance(); else home();
+  window.scrollTo({top:0});
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+
+</body>
+</html>
